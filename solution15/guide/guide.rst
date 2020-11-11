@@ -11,9 +11,12 @@ Per-Session Policy Walk-Through
 General high-level BIG-IP configuration elements
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Configure BIG-IP Pools and members servicing the unique SAML SP (solution15-sp-pool, solution15-sp1-pool).
-Configure the Identity Aware Proxy (IAP) virtual server, and the Portal virtual server.
-
+Configure BIG-IP Pools and members servicing the unique SAML SP
+	- solution15-sp-pool 
+	- solution15-sp1-pool
+Configure Virtual Servers
+	- Identity Aware Proxy (IAP) virtual server
+	- Portal virtual server
 Configure Federation services
 	- Local SAML SP 
 		- sp.acme.com-sp 
@@ -33,7 +36,7 @@ Configure Webtop
 	- Add Webtop the associated Webtop Links (sp.acme.com, sp1.acme.com).
 Update Virtual Servers Access Policy
 	- Add appropriate Access Policy the Virtual Server. 
-	
+
 
 Per-Session Policy - SAML Identity Provider
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
