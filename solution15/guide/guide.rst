@@ -4,6 +4,26 @@ Solution15 Policy
 
 This solution requires creation of three access policies. A default allow per-session policy and a per-request policy using two subroutines for Identity Aware Proxy(IAP). The third policy will be used by a  virtual server performing both as a SAML SP to an external IDP along with SAML IDP to the Identity Aware Proxy virtual server.
 
+General high-level BIG-IP configuration elements
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Configure BIG-IP Pools and members servicing the unique SAML SP (solution15-sp-pool, solution15-sp1-pool).
+Configure the Identity Aware Proxy (IAP) virtual server, and the Portal virtual server.
+Configure Federation services.
+	- Local SAML SP sp.acme.com-sp, sp1.acme.com-sp and portal.acme.com-sp.
+	- External IdP Connectors 
+		- portal-sso1 to SAML SP Services sp.acme.com-sp.
+		- portal-sso2 to SAML SP Services sp1.acme.com-sp. 
+		- portal-sso3 to SAML SP Services portal.acme.com-sp.
+	- Local SAML Identity Provider
+		- portal-sso1 bound to SAML SP Connector (sp.acme.com-sp and sp1.acme.com-sp).
+		- External SP Connectors (sp.acme.com-sp and sp1.acme.com-sp).
+Configure Access Policies.
+	- per-session Policies for IAP and Portal authentication (iap-psp and portal-psp).
+	- per-request Policy for IAP authentication (iap-prp).
+Add Webtop and the associated Webtop Links (sp.acme.com, sp1.acme.com)
+Add configured policies to the appropriate Virtual Server. 
+
 
 Per-Session Policy Walk-Through
 -------------------------------------
