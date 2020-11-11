@@ -75,6 +75,9 @@ URL Branch Rules
 
 |image006|
 
+#.	The unique identifier URI for the SAML SP  sp.acme.com-sp.
+#.	The unique identifier URI for the SAML SP  sp1.acme.com-sp.
+#.	Order of precendents. 
 
 Subroutine: SP - SAML Auth
 
@@ -175,6 +178,7 @@ Endpoint Settings
 Security Settings
 
 |image019|
+
 
 IDP Connector - portal-sso1 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -281,6 +285,7 @@ Security Settings
 
 |image024|
 
+
 SP Connector - sp.acme.com-sp 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -305,6 +310,7 @@ Single Logout Service Settings
 SP Location Settings
 
 |image037|
+
 
 SP Connector - sp1.acme.com-sp 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
