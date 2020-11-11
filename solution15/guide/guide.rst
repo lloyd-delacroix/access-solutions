@@ -11,7 +11,10 @@ Configure BIG-IP Pools and members servicing the unique SAML SP (solution15-sp-p
 Configure the Identity Aware Proxy (IAP) virtual server, and the Portal virtual server.
 
 Configure Federation services
-	- Local SAML SP sp.acme.com-sp, sp1.acme.com-sp and portal.acme.com-sp.
+	- Local SAML SP 
+		- sp.acme.com-sp 
+		- sp1.acme.com-sp 
+		- portal.acme.com-sp.
 	- External IdP Connectors 
 		- portal-sso1 to SAML SP Services sp.acme.com-sp.
 		- portal-sso2 to SAML SP Services sp1.acme.com-sp. 
