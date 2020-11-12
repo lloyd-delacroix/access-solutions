@@ -3,11 +3,6 @@ Solution4:  SAML IDP (AD Auth)
 .. _solution4:
 This solution documents all the necessary pieces required to create an AD Authenticated SAML IDP.  This solution is designed to be integrated with additional solutions in the UDF  deployment that require an BIGIP IDP.
 
-Keywords: SAML, IDP, AD
-
-DC: single, multi
-
-
 
 URL
 ----
@@ -72,3 +67,8 @@ BIG-IP Components used
     - AAA AD Server
     - IDP Service
     - SP Connector
+
+
+Keywords: SAML, IDP, AD
+
+DC: single, multi

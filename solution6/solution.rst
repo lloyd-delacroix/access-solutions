@@ -3,11 +3,6 @@ Solution6: LTM & APM - Client Certificate to Single Domain kerberos SSO
 .. _solution6:
 This solution documents all the necessary pieces required to create an APM policy that prompts the user for their certificate then performs kerberos SSO to an application.
 
-Keywords: certificate, ad, active, directory, kerberos, sso
-
-DC: single, multi
-
-
 URL
 ----
 
@@ -71,3 +66,10 @@ BIG-IP Components used
     - AAA LDAP AAA Servers
     - AAA OCSP Responder Servers
     - Kerberos SSO
+
+
+
+Keywords: certificate, ad, active, directory, kerberos, sso
+
+DC: single, multi
+

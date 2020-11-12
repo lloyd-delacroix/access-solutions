@@ -1,12 +1,9 @@
 
-Solution15 Policy
-======================
+Traffic Flow
+===============
 
 This solution requires creation of three access policies. A default allow per-session policy and a per-request policy using two subroutines for Identity Aware Proxy(IAP). The third policy will be used by a  virtual server performing both as a SAML SP to an external IDP along with SAML IDP to the Identity Aware Proxy virtual server.
 
-
-Per-Session Policy Walk-Through
--------------------------------------
 
 General high-level BIG-IP configuration elements
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -38,8 +35,13 @@ Update Virtual Servers Access Policy
 	- Add appropriate Access Policy the Virtual Server. 
 
 
-Per-Session Policy - SAML Identity Provider
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+Portal-psp Per-Session Policy
+=================================
+
+Policy Walk-Through
+-------------------------------------
 
 |image002|
 
@@ -48,16 +50,186 @@ Per-Session Policy - SAML Identity Provider
 #.	After successful Resource Assignment, the user is granted access via the Allow Terminal.
 #.	If SAML Authentication is unsuccessful, the user proceeds down the fallback branch to be denied access via the Deny Terminal
 
-Per-Session Policy - SAML Identity Aware Proxy
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Policies Agent Configuration
+-------------------------------------
+
+
+
+Portal-psp SAML Auth Agent
+
+|image004|
+
+
+Advanced Resource Assign
+
+|image005|
+
+Profile Settings
+------------------------------------------
+
+The Portal Profile settings have been modified in order to attach the IDP Service.
+
+|image053|
+
+
+Supporting APM Objects
+--------------------------
+
+Configurations settings for Federation Services, (Local SP Services, External IdP Connectors, Local IdP Services, External SP Connectors).
+
+
++-------------------------------------------+
+|        SP Service Binding Table           |
++=======================+===================+
+|      SP Service       |    IDP Connector  |
++-----------------------+-------------------+
+|  portal.acme.com-sp   |   portal-sso3     |
++-----------------------+-------------------+
+
+
+SP Service - Portal.acme.com-sp 
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+General Settings
+
+|image011|
+
+
+Endpoint Settings
+
+|image012|
+
+Security Settings
+
+|image013|
+
+
+IDP Connector - portal-sso3 
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+General Settings
+
+|image029|
+
+Endpoint Settings
+	- Single Sign On Service
+
+|image030|
+
+Security Settings
+
+|image031|
+
+Single Logout Service Settings
+
+|image032|
+
+
+IDP Service - portal-sso1 
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
++-------------------------------------------+
+|       IdP Service Binding Table           |
++=======================+===================+
+|    IdP Service        |    SP Connector   |
++-----------------------+-------------------+
+|  portal-sso1          |   sp.acme.com-sp  |
++-----------------------+-------------------+
+|  portal-sso1          |   sp1.acme.com-sp |
++-----------------------+-------------------+
+
+
+General Settings
+
+|image020|
+
+SAML Profiles
+
+|image021|
+
+Endpoint Settings
+
+|image022|
+
+Assertion Settings
+
+|image023|
+
+Security Settings
+
+|image024|
+
+
+SP Connector - sp.acme.com-sp 
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+General Settings
+
+|image033|
+
+Endpoint Settings
+
+- Location URL : https://sp.acme.com/saml/sp/profile/post/acs
+
+|image034|
+
+Security Settings
+
+|image035|
+
+Single Logout Service Settings
+
+|image036|
+
+SP Location Settings
+
+|image037|
+
+
+SP Connector - sp1.acme.com-sp 
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+General Settings
+
+|image038|
+
+Endpoint Settings
+
+- Location URL : https://sp1.acme.com/saml/sp/profile/post/acs
+
+|image039|
+
+Security Settings
+
+|image040|
+
+Single Logout Service Settings
+
+|image041|
+
+SP Location Settings
+
+|image042|
+
+
+
+iap-psp Per-Session Policy
+=================================
+
+Policy Walk-Through
+----------------------
+
 |image001|
 
 #.  This initial access policy (default allow) is a per-session policy to populate required session variable name and values.
 
 
+iap-prp Per-Request Policy
+=================================
 
-Per-Request Policy - SAML Identity Aware Proxy
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Policy Walk-Through
+----------------------
+
 
 This per-request access policy accepts users request and redirect them to  one of the two SAML Auth Subroutines configured for sp.acme.com or sp1.acme.com.
 
@@ -80,25 +252,6 @@ This per-request access policy accepts users request and redirect them to  one o
 
 Policies Agent Configuration
 -------------------------------------
-
-
-
-Per-Session Agent configuration -Identity Provider
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-Portal-psp SAML Auth Agent
-
-|image004|
-
-
-Advanced Resource Assign
-
-|image005|
-
-
-Per-Request Agent configuration - Identity Aware Proxy 
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
 
 
 URL Branch Rules
@@ -133,19 +286,7 @@ Pool Assign - sp1_pool
 Profile Settings
 ------------------------------------------
 
-The Portal Profile settings have been modified in order to attach the IDP Service.
-
-|image053|
-
 The IAP profile settings are the default.
-
-
-
-
-Supporting APM Objects
---------------------------
-
-Configurations settings for Federation Services, (Local SP Services, External IdP Connectors, Local IdP Services, External SP Connectors).
 
 
 
@@ -154,28 +295,10 @@ Configurations settings for Federation Services, (Local SP Services, External Id
 +=======================+===================+
 |      SP Service       |    IDP Connector  |
 +-----------------------+-------------------+
-|  portal.acme.com-sp   |   portal-sso3     |
-+-----------------------+-------------------+
 |  sp.acme.com-sp       |   portal-sso1     |
 +-----------------------+-------------------+
 |  sp1.acme.com-sp      |   portal-sso2     |
 +-----------------------+-------------------+
-
-SP Service - Portal.acme.com-sp 
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-General Settings
-
-|image011|
-
-
-Endpoint Settings
-
-|image012|
-
-Security Settings
-
-|image013|
 
 SP Service - sp.acme.com-sp 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -255,117 +378,8 @@ Single Logout Service Settings
 |image028|
 
 
-IDP Connector - portal-sso3 
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-General Settings
-
-|image029|
-
-Endpoint Settings
-	- Single Sign On Service
-
-|image030|
-
-Security Settings
-
-|image031|
-
-Single Logout Service Settings
-
-|image032|
 
 
-
-
-
-
-IDP Service - portal-sso1 
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-+-------------------------------------------+
-|       IdP Service Binding Table           |
-+=======================+===================+
-|    IdP Service        |    SP Connector   |
-+-----------------------+-------------------+
-|  portal-sso1          |   sp.acme.com-sp  |
-+-----------------------+-------------------+
-|  portal-sso1          |   sp1.acme.com-sp |
-+-----------------------+-------------------+
-
-
-
-General Settings
-
-|image020|
-
-SAML Profiles
-
-|image021|
-
-Endpoint Settings
-
-|image022|
-
-Assertion Settings
-
-|image023|
-
-Security Settings
-
-|image024|
-
-
-SP Connector - sp.acme.com-sp 
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-General Settings
-
-|image033|
-
-Endpoint Settings
-
-- Location URL : https://sp.acme.com/saml/sp/profile/post/acs
-
-|image034|
-
-Security Settings
-
-|image035|
-
-Single Logout Service Settings
-
-|image036|
-
-SP Location Settings
-
-|image037|
-
-
-SP Connector - sp1.acme.com-sp 
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-General Settings
-
-|image038|
-
-Endpoint Settings
-
-- Location URL : https://sp1.acme.com/saml/sp/profile/post/acs
-
-|image039|
-
-Security Settings
-
-|image040|
-
-Single Logout Service Settings
-
-|image041|
-
-SP Location Settings
-
-|image042|
 
 
 User's Perspective

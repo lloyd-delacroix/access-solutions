@@ -5,12 +5,6 @@ This solution documents all the necessary pieces required to create a SAML SP
 
 
 
-Keywords: SAML, SP, AD
-
-DC: single, multi
-
-
-
 URL
 ----
 
@@ -77,3 +71,11 @@ BIG-IP Components used
 
     - SP Service
     - IDP Connector
+
+
+
+Keywords: SAML, SP, AD
+
+DC: single, multi
+
+
