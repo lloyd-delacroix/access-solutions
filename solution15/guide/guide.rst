@@ -6,7 +6,7 @@ This solution requires creation of three access policies. A default allow per-se
 
 
 General high-level BIG-IP configuration elements
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+-------------------------------------------------
 
 Configure BIG-IP Pools and members servicing the unique SAML SP
 	- solution15-sp-pool 
