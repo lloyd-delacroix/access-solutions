@@ -125,9 +125,6 @@ Single Logout Service Settings
 |image032|
 
 
-IDP Service - portal-sso1 
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
 +-------------------------------------------+
 |       IdP Service Binding Table           |
 +=======================+===================+
@@ -137,6 +134,10 @@ IDP Service - portal-sso1
 +-----------------------+-------------------+
 |  portal-sso1          |   sp1.acme.com-sp |
 +-----------------------+-------------------+
+
+IDP Service - portal-sso1 
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
 
 
 General Settings
